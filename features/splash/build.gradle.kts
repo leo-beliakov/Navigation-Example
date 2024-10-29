@@ -6,3 +6,7 @@ plugins {
 android {
     namespace = "com.leoapps.splash"
 }
+
+dependencies {
+    implementation(project(":features:onboarding"))
+}

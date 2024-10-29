@@ -2,7 +2,7 @@ package com.leoapps.splash.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,7 +24,7 @@ fun SplashScreen(
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .background(Color.Yellow)
     ) {
         Text(text = "Splash Screen")

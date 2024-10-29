@@ -1,11 +1,13 @@
 package com.leoapps.mvi
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.leoapps.mvi.model.NoState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 /**
  * Base ViewModel managing UI state, effects, and navigation commands.
@@ -37,6 +39,8 @@ abstract class BaseViewModel<State, Effect, NavCommand> : ViewModel() {
     protected open fun getInitialState() = NoState
 
     protected fun navigate(command: NavCommand) {
-        _navigationCommands.tryEmit(command)
+        viewModelScope.launch {
+            _navigationCommands.emit(command)
+        }
     }
 }
