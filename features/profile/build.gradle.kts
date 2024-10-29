@@ -43,6 +43,7 @@ android {
 dependencies {
     implementation(project(":common:ui"))
     implementation(project(":common:navigation"))
+    implementation(project(":common:mvi"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

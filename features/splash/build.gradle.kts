@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.compose.compiler)
+    kotlin("kapt")
+    alias(libs.plugins.daggerHilt)
 }
 
 android {
@@ -42,6 +44,8 @@ android {
 
 dependencies {
     implementation(project(":common:ui"))
+    implementation(project(":common:navigation"))
+    implementation(project(":common:mvi"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -58,6 +62,11 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    //Hilt DI
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.compose)
+    kapt(libs.hilt.compiler)
 
     implementation(libs.kotlin.serialization)
     implementation(libs.androidx.navigation.compose)

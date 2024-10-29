@@ -42,6 +42,7 @@ android {
 
 dependencies {
     implementation(project(":common:ui"))
+    implementation(project(":common:mvi"))
     implementation(project(":common:navigation"))
     implementation(project(":features:home"))
     implementation(project(":features:profile"))

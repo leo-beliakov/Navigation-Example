@@ -54,6 +54,8 @@ dependencies {
     implementation(project(":features:main"))
     implementation(project(":features:auth"))
     implementation(project(":common:ui"))
+    implementation(project(":common:mvi"))
+    implementation(project(":common:navigation"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

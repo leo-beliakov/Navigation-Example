@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.leoapps.home"
+    namespace = "com.leoapps.mvi"
     compileSdk = 34
 
     defaultConfig {
@@ -41,10 +41,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":common:ui"))
-    implementation(project(":common:mvi"))
-    implementation(project(":common:navigation"))
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

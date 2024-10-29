@@ -22,6 +22,8 @@ dependencyResolutionManagement {
 rootProject.name = "Navigation Test"
 include(":app")
 include(":common:ui")
+include(":common:mvi")
+include(":common:navigation")
 include(":features:splash")
 include(":features:onboarding")
 include(":features:main")
@@ -29,4 +31,3 @@ include(":features:auth")
 include(":features:home")
 include(":features:profile")
 include(":features:chat")
-include(":common:navigation")
