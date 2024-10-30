@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -18,11 +19,12 @@ import com.leoapps.onboarding.presentation.model.OnboardingUiState
 
 @Composable
 fun OnboardingPage(
-    page: OnboardingUiState.Page
+    page: OnboardingUiState.Page,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
     ) {
         Image(
             painter = painterResource(page.image),
@@ -31,13 +33,15 @@ fun OnboardingPage(
         )
         Text(
             text = stringResource(page.title),
-            style = MaterialTheme.typography.titleLarge,
+            style = MaterialTheme.typography.headlineMedium,
             textAlign = TextAlign.Center,
+            color = Color.Black,
             modifier = Modifier.padding(top = 16.dp)
         )
         Text(
             text = stringResource(page.description),
-            style = MaterialTheme.typography.bodyLarge,
+            style = MaterialTheme.typography.titleMedium,
+            color = Color.Gray,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 8.dp)
         )
@@ -48,6 +52,6 @@ fun OnboardingPage(
 @Composable
 private fun OnboardingPagePreview() {
     OnboardingPage(
-        page = OnboardingUiState.Page.WELCOME
+        page = OnboardingUiState.Page.WELCOME,
     )
 }

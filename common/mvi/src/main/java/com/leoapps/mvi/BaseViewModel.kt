@@ -28,10 +28,10 @@ abstract class BaseViewModel<State : UiState, Effect : UiEffect, NavCommand : Na
     val state = _state.asStateFlow()
 
     /**
-     * Flow for emitting one-time [Effect]s, exposed as [sideEffects] for UI consumption.
+     * Flow for emitting one-time [Effect]s, exposed as [uiEffects] for UI consumption.
      */
-    protected val _sideEffects = MutableSharedFlow<Effect>()
-    val sideEffects = _sideEffects.asSharedFlow()
+    protected val _uiEffects = MutableSharedFlow<Effect>()
+    val uiEffects = _uiEffects.asSharedFlow()
 
     /**
      * Flow for navigation instructions, exposed as [navigationCommands].
@@ -44,6 +44,12 @@ abstract class BaseViewModel<State : UiState, Effect : UiEffect, NavCommand : Na
     protected fun navigate(command: NavCommand) {
         viewModelScope.launch {
             _navigationCommands.emit(command)
+        }
+    }
+
+    protected fun sendUiEffect(effect: Effect) {
+        viewModelScope.launch {
+            _uiEffects.emit(effect)
         }
     }
 }

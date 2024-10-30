@@ -9,8 +9,8 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface OnboardingModule {
+interface ProfileModule {
 
     @Binds
-    fun bindOnboardingRepository(impl: ProfileRepositoryImpl): ProfileRepository
+    fun bindProfileRepository(impl: ProfileRepositoryImpl): ProfileRepository
 }

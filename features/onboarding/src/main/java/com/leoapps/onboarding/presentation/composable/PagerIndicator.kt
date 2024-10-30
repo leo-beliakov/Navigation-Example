@@ -17,10 +17,12 @@ import androidx.compose.ui.unit.dp
 fun PagerIndicator(
     currentPage: Int,
     numberOfPages: Int,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(4.dp)
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        modifier = modifier,
     ) {
         repeat(numberOfPages) { index ->
             val isSelected = index == currentPage
@@ -33,7 +35,7 @@ fun PagerIndicator(
 private fun IndicatorItem(
     isSelected: Boolean
 ) {
-    val color = if (isSelected) Color.Green else Color.Gray
+    val color = if (isSelected) Color.White else Color.Black
     Spacer(
         modifier = Modifier
             .size(8.dp)
@@ -49,6 +51,6 @@ private fun IndicatorItem(
 private fun PagerIndicatorPreview() {
     PagerIndicator(
         currentPage = 1,
-        numberOfPages = 3
+        numberOfPages = 3,
     )
 }

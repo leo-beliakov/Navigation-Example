@@ -10,6 +10,7 @@ import com.leoapps.main.ui.AuthDestination
 import com.leoapps.main.ui.AuthScreen
 import com.leoapps.main.ui.MainDestination
 import com.leoapps.main.ui.MainScreen
+import com.leoapps.navigationtest.presentation.navigation.OnboardingNavigatorImpl
 import com.leoapps.navigationtest.presentation.navigation.SplashNavigatorImpl
 import com.leoapps.splash.presentation.SplashDestination
 import com.leoapps.splash.presentation.SplashScreen
@@ -28,7 +29,9 @@ fun RootScreen() {
             )
         }
         composable<OnboardingDestination> {
-            OnboardingScreen()
+            OnboardingScreen(
+                navigator = OnboardingNavigatorImpl(navController)
+            )
         }
         composable<MainDestination> {
             MainScreen()

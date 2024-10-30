@@ -1,8 +1,8 @@
 package com.leoapps.onboarding.presentation
 
 import com.leoapps.mvi.BaseViewModel
-import com.leoapps.mvi.model.NoEffect
 import com.leoapps.onboarding.presentation.model.OnboardingNavCommand
+import com.leoapps.onboarding.presentation.model.OnboardingUiEffect
 import com.leoapps.onboarding.presentation.model.OnboardingUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.update
@@ -10,18 +10,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
-) : BaseViewModel<OnboardingUiState, NoEffect, OnboardingNavCommand>() {
+) : BaseViewModel<OnboardingUiState, OnboardingUiEffect, OnboardingNavCommand>() {
 
     fun onNextClicked() {
-        _state.update {
-            val nextPage = it.seletedPage + 1
-            val isLastPage = nextPage == it.pages.lastIndex
-
-            it.copy(
-                seletedPage = nextPage,
-                isLastPage = isLastPage
-            )
-        }
+        updateStateWithNewPage(state.value.seletedPage + 1)
+        animateToNextPage()
     }
 
     fun onSkipClicked() {
@@ -30,6 +23,25 @@ class OnboardingViewModel @Inject constructor(
 
     fun onContinueClicked() {
         navigate(OnboardingNavCommand.OpenMain)
+    }
+
+    fun onPageScrolled(currentPage: Int) {
+        updateStateWithNewPage(currentPage)
+    }
+
+    private fun updateStateWithNewPage(currentPage: Int) {
+        _state.update {
+            it.copy(
+                seletedPage = currentPage,
+                isLastPage = currentPage == it.pages.lastIndex
+            )
+        }
+    }
+
+    private fun animateToNextPage() {
+        sendUiEffect(
+            OnboardingUiEffect.AnimateToPage(state.value.seletedPage)
+        )
     }
 
     override fun getInitialState() = OnboardingUiState(
