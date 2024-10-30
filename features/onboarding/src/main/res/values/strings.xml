@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onboarding_welocme_page_title">Welcome to the App</string>
+    <string name="onboarding_welocme_page_description">Discover the main features of our app and how it can benefit you.</string>
+
+    <string name="onboarding_progress_page_title">Track Your Progress</string>
+    <string name="onboarding_progress_page_description">Keep an eye on your progress and reach your goals efficiently.</string>
+
+    <string name="onboarding_get_started_page_title">Get Started</string>
+    <string name="onboarding_get_started_page_description">Sign up or log in to personalize your experience and unlock all features.</string>
+</resources>

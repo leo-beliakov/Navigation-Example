@@ -2,7 +2,9 @@ package com.leoapps.mvi
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.leoapps.mvi.model.NoState
+import com.leoapps.mvi.model.NavigationCommand
+import com.leoapps.mvi.model.UiEffect
+import com.leoapps.mvi.model.UiState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -16,18 +18,19 @@ import kotlinx.coroutines.launch
  * @param Effect Type representing one-time events for the UI.
  * @param NavCommand Type representing navigation instructions.
  */
-abstract class BaseViewModel<State, Effect, NavCommand> : ViewModel() {
+abstract class BaseViewModel<State : UiState, Effect : UiEffect, NavCommand : NavigationCommand>
+    : ViewModel() {
 
     /**
      * Holds the current view state, initialized by [getInitialState] and exposed as [state].
      */
-    private val _state = MutableStateFlow(getInitialState())
+    protected val _state = MutableStateFlow<State>(getInitialState())
     val state = _state.asStateFlow()
 
     /**
      * Flow for emitting one-time [Effect]s, exposed as [sideEffects] for UI consumption.
      */
-    private val _sideEffects = MutableSharedFlow<Effect>()
+    protected val _sideEffects = MutableSharedFlow<Effect>()
     val sideEffects = _sideEffects.asSharedFlow()
 
     /**
@@ -36,7 +39,7 @@ abstract class BaseViewModel<State, Effect, NavCommand> : ViewModel() {
     private val _navigationCommands = MutableSharedFlow<NavCommand>()
     val navigationCommands = _navigationCommands.asSharedFlow()
 
-    protected open fun getInitialState() = NoState
+    abstract fun getInitialState(): State
 
     protected fun navigate(command: NavCommand) {
         viewModelScope.launch {

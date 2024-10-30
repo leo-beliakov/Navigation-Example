@@ -26,4 +26,6 @@ class SplashViewModel @Inject constructor(
             }
         }
     }
+
+    override fun getInitialState() = NoState
 }
