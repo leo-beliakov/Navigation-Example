@@ -4,11 +4,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -32,15 +35,35 @@ object MainDestination
 fun MainScreen(
     navigator: MainNavigator
 ) {
-    val items = listOf(
-        BottomNavItem.Home,
-        BottomNavItem.Chat,
-        BottomNavItem.Profile
-    )
-
+    val items = BottomNavItem.entries
     val navController = rememberNavController()
-    var selectedItemIndex by remember { mutableStateOf(0) }
+    var selectedItemIndex by remember { mutableIntStateOf(0) }
 
+    // Update the selected item index when the destination changes
+    // This is important to properly handle back navigation
+    LaunchedEffect(navController) {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            selectedItemIndex = items.indexOfFirst { bottomNavItem ->
+                destination.hasRoute(bottomNavItem.destination::class)
+            }
+        }
+    }
+
+    MainScreen(
+        items = items,
+        selectedItemIndex = selectedItemIndex,
+        navigator = navigator,
+        navController = navController,
+    )
+}
+
+@Composable
+private fun MainScreen(
+    items: List<BottomNavItem>,
+    selectedItemIndex: Int,
+    navigator: MainNavigator,
+    navController: NavHostController,
+) {
     Scaffold(
         content = { innerPadding ->
             NavHost(
@@ -51,13 +74,13 @@ fun MainScreen(
                 composable<HomeDestination> {
                     HomeScreen()
                 }
+                composable<ChatDestination> {
+                    ChatScreen()
+                }
                 composable<ProfileDestination> {
                     ProfileScreen(
                         navigator = ProfileNavigatorImpl(navigator)
                     )
-                }
-                composable<ChatDestination> {
-                    ChatScreen()
                 }
             }
         },
@@ -68,7 +91,6 @@ fun MainScreen(
                         item = item,
                         isSelected = selectedItemIndex == index,
                         onTabClick = {
-                            selectedItemIndex = items.indexOf(item)
                             navController.openTab(item.destination)
                         }
                     )

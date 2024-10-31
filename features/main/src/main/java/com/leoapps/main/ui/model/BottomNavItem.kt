@@ -6,24 +6,22 @@ import com.leoapps.main.R
 import com.leoapps.navigation.NavigationDestination
 import com.leoapps.profile.presentation.ProfileDestination
 
-sealed class BottomNavItem(
+enum class BottomNavItem(
     val title: String,
     val icon: Int,
     val destination: NavigationDestination
 ) {
-    object Home : BottomNavItem(
+    Home(
         "Home",
         R.drawable.ic_home,
         HomeDestination
-    )
-
-    object Chat : BottomNavItem(
+    ),
+    Chat(
         "Chat",
         R.drawable.ic_chat,
         ChatDestination
-    )
-
-    object Profile : BottomNavItem(
+    ),
+    Profile(
         "Profile",
         R.drawable.ic_profile,
         ProfileDestination
