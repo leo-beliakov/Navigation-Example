@@ -18,6 +18,7 @@ import com.leoapps.home.presentation.HomeDestination
 import com.leoapps.home.presentation.HomeScreen
 import com.leoapps.main.ui.composables.HomeNavBarItem
 import com.leoapps.main.ui.model.BottomNavItem
+import com.leoapps.main.ui.navigator.MainNavigator
 import com.leoapps.main.ui.navigator.ProfileNavigatorImpl
 import com.leoapps.navigation.openTab
 import com.leoapps.profile.presentation.ProfileDestination
@@ -29,6 +30,7 @@ object MainDestination
 
 @Composable
 fun MainScreen(
+    navigator: MainNavigator
 ) {
     val items = listOf(
         BottomNavItem.Home,
@@ -50,7 +52,9 @@ fun MainScreen(
                     HomeScreen()
                 }
                 composable<ProfileDestination> {
-                    ProfileScreen(navigator = ProfileNavigatorImpl())
+                    ProfileScreen(
+                        navigator = ProfileNavigatorImpl(navigator)
+                    )
                 }
                 composable<ChatDestination> {
                     ChatScreen()

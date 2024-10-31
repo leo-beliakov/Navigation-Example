@@ -7,9 +7,11 @@ import androidx.navigation.compose.rememberNavController
 import com.leoapps.feature_b.ui.OnboardingDestination
 import com.leoapps.feature_b.ui.OnboardingScreen
 import com.leoapps.main.ui.AuthDestination
-import com.leoapps.main.ui.AuthScreen
+import com.leoapps.main.ui.LoginScreen
 import com.leoapps.main.ui.MainDestination
 import com.leoapps.main.ui.MainScreen
+import com.leoapps.navigationtest.presentation.navigation.LoginNavigatorImpl
+import com.leoapps.navigationtest.presentation.navigation.MainNavigatorImpl
 import com.leoapps.navigationtest.presentation.navigation.OnboardingNavigatorImpl
 import com.leoapps.navigationtest.presentation.navigation.SplashNavigatorImpl
 import com.leoapps.splash.presentation.SplashDestination
@@ -34,10 +36,14 @@ fun RootScreen() {
             )
         }
         composable<MainDestination> {
-            MainScreen()
+            MainScreen(
+                navigator = MainNavigatorImpl(navController)
+            )
         }
         composable<AuthDestination> {
-            AuthScreen()
+            LoginScreen(
+                navigator = LoginNavigatorImpl(navController)
+            )
         }
     }
 }
