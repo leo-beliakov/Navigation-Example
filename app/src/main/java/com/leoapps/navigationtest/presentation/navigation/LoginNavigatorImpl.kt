@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import com.leoapps.auth.login.presentation.model.LoginNavCommand
 import com.leoapps.auth.login.presentation.navigation.LoginNavigator
 import com.leoapps.auth.signup.presentation.SignupDestination
+import com.leoapps.main.ui.LoginDestination
 import com.leoapps.main.ui.MainDestination
 
 class LoginNavigatorImpl(
@@ -17,7 +18,11 @@ class LoginNavigatorImpl(
             }
 
             is LoginNavCommand.OpenMain -> {
-                navController.navigate(MainDestination)
+                navController.navigate(MainDestination) {
+                    popUpTo(LoginDestination) {
+                        inclusive = true
+                    }
+                }
             }
         }
     }

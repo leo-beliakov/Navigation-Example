@@ -3,6 +3,7 @@ package com.leoapps.navigationtest.presentation.navigation
 import androidx.navigation.NavController
 import com.leoapps.feature_b.ui.OnboardingDestination
 import com.leoapps.main.ui.MainDestination
+import com.leoapps.splash.presentation.SplashDestination
 import com.leoapps.splash.presentation.model.SplashNavCommand
 import com.leoapps.splash.presentation.navigation.SplashNavigator
 
@@ -18,10 +19,18 @@ class SplashNavigatorImpl(
     }
 
     private fun openMain() {
-        navController.navigate(MainDestination)
+        navController.navigate(MainDestination) {
+            popUpTo(SplashDestination) {
+                inclusive = true
+            }
+        }
     }
 
     private fun openOnboarding() {
-        navController.navigate(OnboardingDestination)
+        navController.navigate(OnboardingDestination) {
+            popUpTo(SplashDestination) {
+                inclusive = true
+            }
+        }
     }
 }

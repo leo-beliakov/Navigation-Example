@@ -1,6 +1,7 @@
 package com.leoapps.navigationtest.presentation.navigation
 
 import androidx.navigation.NavController
+import com.leoapps.feature_b.ui.OnboardingDestination
 import com.leoapps.main.ui.LoginDestination
 import com.leoapps.onboarding.presentation.model.OnboardingNavCommand
 import com.leoapps.onboarding.presentation.navigator.OnboardingNavigator
@@ -11,7 +12,13 @@ class OnboardingNavigatorImpl(
 
     override fun onNavCommand(navCommand: OnboardingNavCommand) {
         when (navCommand) {
-            OnboardingNavCommand.OpenAuth -> navController.navigate(LoginDestination)
+            OnboardingNavCommand.OpenAuth -> {
+                navController.navigate(LoginDestination) {
+                    popUpTo(OnboardingDestination) {
+                        inclusive = true
+                    }
+                }
+            }
         }
     }
 }

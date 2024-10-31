@@ -12,8 +12,17 @@ class SignupNavigatorImpl(
 
     override fun onNavCommand(navCommand: SignupNavCommand) {
         when (navCommand) {
-            is SignupNavCommand.OpenLogin -> navController.navigate(LoginDestination)
-            is SignupNavCommand.OpenMain -> navController.navigate(MainDestination)
+            is SignupNavCommand.OpenLogin -> {
+                navController.popBackStack<LoginDestination>(inclusive = false)
+            }
+
+            is SignupNavCommand.OpenMain -> {
+                navController.navigate(MainDestination) {
+                    popUpTo(LoginDestination) {
+                        inclusive = true
+                    }
+                }
+            }
         }
     }
 }
