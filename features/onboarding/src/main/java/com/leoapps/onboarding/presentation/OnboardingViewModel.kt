@@ -18,11 +18,11 @@ class OnboardingViewModel @Inject constructor(
     }
 
     fun onSkipClicked() {
-        navigate(OnboardingNavCommand.OpenMain)
+        navigate(OnboardingNavCommand.OpenAuth)
     }
 
     fun onContinueClicked() {
-        navigate(OnboardingNavCommand.OpenMain)
+        navigate(OnboardingNavCommand.OpenAuth)
     }
 
     fun onPageScrolled(currentPage: Int) {

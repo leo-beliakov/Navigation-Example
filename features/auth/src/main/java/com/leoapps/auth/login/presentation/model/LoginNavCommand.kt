@@ -1,4 +1,4 @@
-package com.leoapps.auth.presentation.model
+package com.leoapps.auth.login.presentation.model
 
 import com.leoapps.mvi.model.NavigationCommand
 
