@@ -1,9 +1,9 @@
 package com.leoapps.home.root.navigator
 
 import androidx.navigation.NavController
-import com.leoapps.home.second.presentation.HomeFifthDestination
-import com.leoapps.home.second.presentation.model.HomeFourthNavCommand
-import com.leoapps.home.second.presentation.navigation.HomeFourthNavigator
+import com.leoapps.home.fifth.presentation.HomeFifthDestination
+import com.leoapps.home.fourth.presentation.model.HomeFourthNavCommand
+import com.leoapps.home.fourth.presentation.navigation.HomeFourthNavigator
 
 class HomeFourthNavigatorImpl(
     private val navController: NavController

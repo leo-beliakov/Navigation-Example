@@ -1,4 +1,4 @@
-package com.leoapps.home.second.presentation.model
+package com.leoapps.home.first.presentation.model
 
 import com.leoapps.mvi.model.NavigationCommand
 

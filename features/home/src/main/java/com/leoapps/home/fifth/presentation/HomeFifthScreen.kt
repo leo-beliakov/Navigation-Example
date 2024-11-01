@@ -1,4 +1,4 @@
-package com.leoapps.home.second.presentation
+package com.leoapps.home.fifth.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,8 +26,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.leoapps.home.second.presentation.model.HomeFifthNavCommand
-import com.leoapps.home.second.presentation.navigation.HomeFifthNavigator
+import com.leoapps.home.fifth.presentation.model.HomeFifthNavCommand
+import com.leoapps.home.fifth.presentation.navigation.HomeFifthNavigator
 import com.leoapps.navigation.NavigationDestination
 import kotlinx.serialization.Serializable
 

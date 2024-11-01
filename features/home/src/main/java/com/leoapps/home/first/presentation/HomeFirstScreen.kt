@@ -12,8 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.leoapps.home.second.presentation.model.HomeFirstNavCommand
-import com.leoapps.home.second.presentation.navigation.HomeFirstNavigator
+import com.leoapps.home.first.presentation.model.HomeFirstNavCommand
+import com.leoapps.home.first.presentation.navigation.HomeFirstNavigator
 import com.leoapps.navigation.NavigationDestination
 import kotlinx.serialization.Serializable
 
