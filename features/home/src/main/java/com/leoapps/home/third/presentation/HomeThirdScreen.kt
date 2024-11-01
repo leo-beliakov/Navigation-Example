@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -15,7 +16,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -32,10 +32,23 @@ import com.leoapps.navigation.NavigationDestination
 import kotlinx.serialization.Serializable
 
 @Serializable
-object HomeThirdDestination : NavigationDestination
+data class HomeThirdDestination(
+    val param1: Int,
+    val param2: String,
+    val param3: Boolean,
+    val param4: Param4
+) : NavigationDestination {
+
+    enum class Param4 {
+        VALUE1,
+        VALUE2,
+        VALUE3
+    }
+}
 
 @Composable
 fun HomeThirdScreen(
+    input: HomeThirdDestination,
     navigator: HomeThirdNavigator,
 ) {
     var param1 by remember { mutableIntStateOf(0) }
@@ -68,30 +81,18 @@ fun HomeThirdScreen(
                 modifier = Modifier.size(32.dp)
             )
         }
-        TextField(
-            value = param1.toString(),
-            onValueChange = { param1 = it.toIntOrNull() ?: 0 },
-            label = { Text("Enter primitive param (Int)") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 24.dp)
-        )
-        TextField(
-            value = param2,
-            onValueChange = { param2 = it },
-            label = { Text("Enter primitive param (String)") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp)
+        Text(
+            "Received params: \nparam1 = ${input.param1}, \nparam2 = ${input.param2}, \nparam3 = ${input.param3}, \nparam4 = ${input.param4}",
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Spacer(
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.height(32.dp)
         )
         Button(
             onClick = { navigator.onNavCommand(HomeThirdNavCommand.OpenFourthScreen) },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Go to Third Screen")
+            Text("Go to Fourth Screen")
         }
     }
 }

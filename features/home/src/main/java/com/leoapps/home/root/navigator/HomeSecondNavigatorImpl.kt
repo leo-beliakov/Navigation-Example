@@ -15,8 +15,15 @@ class HomeSecondNavigatorImpl(
                 navController.popBackStack()
             }
 
-            HomeSecondNavCommand.OpenThirdScreen -> {
-                navController.navigate(HomeThirdDestination)
+            is HomeSecondNavCommand.OpenThirdScreen -> {
+                navController.navigate(
+                    HomeThirdDestination(
+                        param1 = navCommand.param1,
+                        param2 = navCommand.param2,
+                        param3 = navCommand.param3,
+                        param4 = navCommand.param4,
+                    )
+                )
             }
         }
     }

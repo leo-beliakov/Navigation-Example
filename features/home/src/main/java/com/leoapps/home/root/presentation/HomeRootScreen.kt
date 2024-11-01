@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.leoapps.home.fifth.presentation.HomeFifthDestination
 import com.leoapps.home.fifth.presentation.HomeFifthScreen
 import com.leoapps.home.first.presentation.HomeFirstDestination
@@ -43,9 +44,12 @@ fun HomeRootScreen() {
                 navigator = HomeSecondNavigatorImpl(navController)
             )
         }
-        composable<HomeThirdDestination> {
+        composable<HomeThirdDestination> { backStackEntry ->
+            val arguments: HomeThirdDestination = backStackEntry.toRoute()
+
             HomeThirdScreen(
-                navigator = HomeThirdNavigatorImpl(navController)
+                input = arguments,
+                navigator = HomeThirdNavigatorImpl(navController),
             )
         }
         composable<HomeFourthDestination> {
