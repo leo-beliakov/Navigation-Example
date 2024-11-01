@@ -1,6 +1,6 @@
 package com.leoapps.home.second.presentation.navigation
 
-import com.leoapps.home.second.presentation.model.HomeSecondNavCommand
+import com.leoapps.home.second.presentation.model.HomeFirstNavCommand
 import com.leoapps.navigation.BaseNavigator
 
-interface HomeFirstNavigator : BaseNavigator<HomeSecondNavCommand>
+interface HomeFirstNavigator : BaseNavigator<HomeFirstNavCommand>
