@@ -1,7 +1,7 @@
 package com.leoapps.main.ui.model
 
 import com.leoapps.chat.presentation.ChatDestination
-import com.leoapps.home.presentation.HomeDestination
+import com.leoapps.home.root.presentation.HomeDestination
 import com.leoapps.main.R
 import com.leoapps.navigation.NavigationDestination
 import com.leoapps.profile.presentation.ProfileDestination

@@ -9,4 +9,5 @@ android {
 
 dependencies {
     implementation(project(":features:onboarding"))
+    implementation(project(":features:auth"))
 }

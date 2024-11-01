@@ -1,6 +1,7 @@
 package com.leoapps.splash.presentation
 
 import androidx.lifecycle.viewModelScope
+import com.leoapps.auth.base.domain.IsUserLoggedInUseCase
 import com.leoapps.mvi.BaseViewModel
 import com.leoapps.mvi.model.NoEffect
 import com.leoapps.mvi.model.NoState
@@ -13,16 +14,19 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    shouldShowOnboarding: ShouldShowOnboardingUseCase
+    shouldShowOnboarding: ShouldShowOnboardingUseCase,
+    isUserLoggedIn: IsUserLoggedInUseCase,
 ) : BaseViewModel<NoState, NoEffect, SplashNavCommand>() {
 
     init {
         viewModelScope.launch {
+            // Hardcode delay for splash screen
             delay(1000)
-            if (shouldShowOnboarding()) {
-                navigate(SplashNavCommand.OpenOnboarding)
-            } else {
-                navigate(SplashNavCommand.OpenMain)
+
+            when {
+                shouldShowOnboarding() -> navigate(SplashNavCommand.OpenOnboarding)
+                isUserLoggedIn() -> navigate(SplashNavCommand.OpenMain)
+                else -> navigate(SplashNavCommand.OpenAuth)
             }
         }
     }

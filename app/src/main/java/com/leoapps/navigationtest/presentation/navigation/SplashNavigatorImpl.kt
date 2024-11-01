@@ -2,6 +2,7 @@ package com.leoapps.navigationtest.presentation.navigation
 
 import androidx.navigation.NavController
 import com.leoapps.feature_b.ui.OnboardingDestination
+import com.leoapps.main.ui.LoginDestination
 import com.leoapps.main.ui.MainDestination
 import com.leoapps.splash.presentation.SplashDestination
 import com.leoapps.splash.presentation.model.SplashNavCommand
@@ -15,6 +16,7 @@ class SplashNavigatorImpl(
         when (navCommand) {
             is SplashNavCommand.OpenMain -> openMain()
             is SplashNavCommand.OpenOnboarding -> openOnboarding()
+            SplashNavCommand.OpenAuth -> openAuth()
         }
     }
 
@@ -28,6 +30,14 @@ class SplashNavigatorImpl(
 
     private fun openOnboarding() {
         navController.navigate(OnboardingDestination) {
+            popUpTo(SplashDestination) {
+                inclusive = true
+            }
+        }
+    }
+
+    private fun openAuth() {
+        navController.navigate(LoginDestination) {
             popUpTo(SplashDestination) {
                 inclusive = true
             }

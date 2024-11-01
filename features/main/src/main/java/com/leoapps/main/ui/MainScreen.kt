@@ -17,8 +17,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.leoapps.chat.presentation.ChatDestination
 import com.leoapps.chat.presentation.ChatScreen
-import com.leoapps.home.presentation.HomeDestination
-import com.leoapps.home.presentation.HomeScreen
+import com.leoapps.home.root.presentation.HomeDestination
+import com.leoapps.home.root.presentation.HomeRootScreen
 import com.leoapps.main.ui.composables.HomeNavBarItem
 import com.leoapps.main.ui.model.BottomNavItem
 import com.leoapps.main.ui.navigator.MainNavigator
@@ -72,7 +72,7 @@ private fun MainScreen(
                 modifier = Modifier.padding(innerPadding)
             ) {
                 composable<HomeDestination> {
-                    HomeScreen()
+                    HomeRootScreen()
                 }
                 composable<ChatDestination> {
                     ChatScreen()
