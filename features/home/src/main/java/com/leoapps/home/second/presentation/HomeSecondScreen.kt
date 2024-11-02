@@ -31,11 +31,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.leoapps.home.base.domain.model.EnumParam
 import com.leoapps.home.second.presentation.model.HomeSecondNavCommand
 import com.leoapps.home.second.presentation.navigation.HomeSecondNavigator
-import com.leoapps.home.third.presentation.HomeThirdDestination
 import com.leoapps.navigation.NavigationDestination
 import kotlinx.serialization.Serializable
 
@@ -49,7 +50,7 @@ fun HomeSecondScreen(
     var param1 by remember { mutableIntStateOf(0) }
     var param2 by remember { mutableStateOf("") }
     var param3 by remember { mutableStateOf(false) }
-    var param4 by remember { mutableStateOf(HomeThirdDestination.Param4.VALUE1) }
+    var param4 by remember { mutableStateOf(EnumParam.VALUE1) }
 
     Column(
         modifier = Modifier
@@ -78,6 +79,13 @@ fun HomeSecondScreen(
                 modifier = Modifier.size(32.dp)
             )
         }
+        Text(
+            text = "(Showcases navigation with primitive-type arguments)",
+            style = MaterialTheme.typography.bodyLarge,
+            color = Color(0xFFE65100),
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(top = 12.dp)
+        )
         TextField(
             value = param1.toString(),
             onValueChange = { param1 = it.toIntOrNull() ?: 0 },
@@ -132,8 +140,8 @@ fun HomeSecondScreen(
 
 @Composable
 private fun DropdownParamMenu(
-    selectedValue: HomeThirdDestination.Param4,
-    onValueChange: (HomeThirdDestination.Param4) -> Unit
+    selectedValue: EnumParam,
+    onValueChange: (EnumParam) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
 
@@ -161,7 +169,7 @@ private fun DropdownParamMenu(
             onDismissRequest = { expanded = false },
             modifier = Modifier.fillMaxWidth()
         ) {
-            HomeThirdDestination.Param4.entries.forEach { value ->
+            EnumParam.entries.forEach { value ->
                 DropdownMenuItem(
                     text = { Text(value.name) },
                     onClick = {

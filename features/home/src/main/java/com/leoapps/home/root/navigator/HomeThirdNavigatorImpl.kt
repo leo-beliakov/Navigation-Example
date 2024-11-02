@@ -15,8 +15,13 @@ class HomeThirdNavigatorImpl(
                 navController.popBackStack()
             }
 
-            HomeThirdNavCommand.OpenFourthScreen -> {
-                navController.navigate(HomeFourthDestination)
+            is HomeThirdNavCommand.OpenFourthScreen -> {
+                navController.navigate(
+                    HomeFourthDestination(
+                        customParam1 = navCommand.customParam1,
+                        customParam2 = navCommand.customParam2,
+                    )
+                )
             }
         }
     }

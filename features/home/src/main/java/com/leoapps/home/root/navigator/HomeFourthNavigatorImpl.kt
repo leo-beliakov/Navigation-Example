@@ -15,8 +15,14 @@ class HomeFourthNavigatorImpl(
                 navController.popBackStack()
             }
 
-            HomeFourthNavCommand.OpenFifthScreen -> {
-                navController.navigate(HomeFifthDestination)
+            is HomeFourthNavCommand.OpenFifthScreen -> {
+                navController.navigate(
+                    HomeFifthDestination(
+                        listParam1 = navCommand.listParam1,
+                        listParam2 = navCommand.listParam2,
+                        listParam3 = navCommand.listParam3,
+                    )
+                )
             }
         }
     }

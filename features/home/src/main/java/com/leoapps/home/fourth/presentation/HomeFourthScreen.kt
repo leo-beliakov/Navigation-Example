@@ -15,32 +15,53 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.leoapps.home.fourth.presentation.model.HomeFourthNavCommand
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.leoapps.home.base.domain.model.HomeCustomParam1
+import com.leoapps.home.base.domain.model.HomeCustomParam2
+import com.leoapps.home.fourth.presentation.model.HomeFourthUiState
 import com.leoapps.home.fourth.presentation.navigation.HomeFourthNavigator
+import com.leoapps.mvi.utils.CollectEventsWithLifecycle
 import com.leoapps.navigation.NavigationDestination
 import kotlinx.serialization.Serializable
 
 @Serializable
-object HomeFourthDestination : NavigationDestination
+data class HomeFourthDestination(
+    val customParam1: HomeCustomParam1,
+    val customParam2: HomeCustomParam2,
+) : NavigationDestination
 
 @Composable
 fun HomeFourthScreen(
+    viewModel: HomeFourthViewModel = hiltViewModel(),
     navigator: HomeFourthNavigator,
 ) {
-    var param1 by remember { mutableIntStateOf(0) }
-    var param2 by remember { mutableStateOf("") }
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
+    HomeFourthScreen(
+        state = state,
+        onBackClicked = viewModel::onBackClicked,
+        onGoToFifthScreenClicked = viewModel::onGoToFifthScreenClicked,
+    )
+
+    CollectEventsWithLifecycle(viewModel.navigationCommands) { command ->
+        navigator.onNavCommand(command)
+    }
+}
+
+@Composable
+private fun HomeFourthScreen(
+    state: HomeFourthUiState,
+    onBackClicked: () -> Unit,
+    onGoToFifthScreenClicked: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -53,13 +74,13 @@ fun HomeFourthScreen(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             IconButton(
-                onClick = { navigator.onNavCommand(HomeFourthNavCommand.Back) },
+                onClick = onBackClicked,
                 modifier = Modifier.size(32.dp)
             ) {
                 Icon(Icons.Default.ArrowBack, contentDescription = "Back")
             }
             Text(
-                text = "Home Second Screen",
+                text = "Home Fourth Screen",
                 style = MaterialTheme.typography.headlineSmall,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.weight(1f)
@@ -68,30 +89,26 @@ fun HomeFourthScreen(
                 modifier = Modifier.size(32.dp)
             )
         }
-        TextField(
-            value = param1.toString(),
-            onValueChange = { param1 = it.toIntOrNull() ?: 0 },
-            label = { Text("Enter primitive param (Int)") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 24.dp)
+        Text(
+            text = "(Showcases navigation with list-type arguments)",
+            color = Color(0xFFE65100),
+            style = MaterialTheme.typography.bodyLarge,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(top = 12.dp)
         )
-        TextField(
-            value = param2,
-            onValueChange = { param2 = it },
-            label = { Text("Enter primitive param (String)") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp)
+        Text(
+            "Received params: \n\nparam1 = ${state.customParam1}, \n\nparam2 = ${state.customParam2}",
+            color = Color(0xFF2E7D32),
+            modifier = Modifier.padding(top = 16.dp)
         )
         Spacer(
             modifier = Modifier.weight(1f)
         )
         Button(
-            onClick = { navigator.onNavCommand(HomeFourthNavCommand.OpenFifthScreen) },
+            onClick = onGoToFifthScreenClicked,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Go to Third Screen")
+            Text("Go to Fifth Screen")
         }
     }
 }

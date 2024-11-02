@@ -4,7 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
+import com.leoapps.home.base.domain.model.EnumParam
+import com.leoapps.home.base.domain.model.EnumParamListNavType
+import com.leoapps.home.base.domain.model.HomeCustomParam1
+import com.leoapps.home.base.domain.model.HomeCustomParam1ListNavType
+import com.leoapps.home.base.domain.model.HomeCustomParam1NavType
+import com.leoapps.home.base.domain.model.HomeCustomParam2
+import com.leoapps.home.base.domain.model.HomeCustomParam2NavType
 import com.leoapps.home.fifth.presentation.HomeFifthDestination
 import com.leoapps.home.fifth.presentation.HomeFifthScreen
 import com.leoapps.home.first.presentation.HomeFirstDestination
@@ -22,6 +28,7 @@ import com.leoapps.home.third.presentation.HomeThirdDestination
 import com.leoapps.home.third.presentation.HomeThirdScreen
 import com.leoapps.navigation.NavigationDestination
 import kotlinx.serialization.Serializable
+import kotlin.reflect.typeOf
 
 @Serializable
 object HomeDestination : NavigationDestination
@@ -44,20 +51,27 @@ fun HomeRootScreen() {
                 navigator = HomeSecondNavigatorImpl(navController)
             )
         }
-        composable<HomeThirdDestination> { backStackEntry ->
-            val arguments: HomeThirdDestination = backStackEntry.toRoute()
-
+        composable<HomeThirdDestination> {
             HomeThirdScreen(
-                input = arguments,
                 navigator = HomeThirdNavigatorImpl(navController),
             )
         }
-        composable<HomeFourthDestination> {
+        composable<HomeFourthDestination>(
+            typeMap = mapOf(
+                typeOf<HomeCustomParam1>() to HomeCustomParam1NavType,
+                typeOf<HomeCustomParam2>() to HomeCustomParam2NavType,
+            )
+        ) {
             HomeFourthScreen(
                 navigator = HomeFourthNavigatorImpl(navController)
             )
         }
-        composable<HomeFifthDestination> {
+        composable<HomeFifthDestination>(
+            typeMap = mapOf(
+                typeOf<List<EnumParam>>() to EnumParamListNavType,
+                typeOf<List<HomeCustomParam1>>() to HomeCustomParam1ListNavType
+            )
+        ) {
             HomeFifthScreen(
                 navigator = HomeFifthNavigatorImpl(navController)
             )

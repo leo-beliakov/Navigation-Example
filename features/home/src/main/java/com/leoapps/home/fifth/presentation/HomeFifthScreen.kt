@@ -24,18 +24,27 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.leoapps.home.base.domain.model.EnumParam
+import com.leoapps.home.base.domain.model.HomeCustomParam1
 import com.leoapps.home.fifth.presentation.model.HomeFifthNavCommand
 import com.leoapps.home.fifth.presentation.navigation.HomeFifthNavigator
 import com.leoapps.navigation.NavigationDestination
 import kotlinx.serialization.Serializable
 
 @Serializable
-object HomeFifthDestination : NavigationDestination
+data class HomeFifthDestination(
+    val listParam1: List<String>,
+    val listParam2: List<EnumParam>,
+    val listParam3: List<HomeCustomParam1>,
+) : NavigationDestination
 
 @Composable
 fun HomeFifthScreen(
+    viewModel: HomeFifthViewModel = hiltViewModel(),
     navigator: HomeFifthNavigator,
 ) {
     var param1 by remember { mutableIntStateOf(0) }
@@ -59,7 +68,7 @@ fun HomeFifthScreen(
                 Icon(Icons.Default.ArrowBack, contentDescription = "Back")
             }
             Text(
-                text = "Home Second Screen",
+                text = "Home Fifth Screen",
                 style = MaterialTheme.typography.headlineSmall,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.weight(1f)
@@ -68,6 +77,13 @@ fun HomeFifthScreen(
                 modifier = Modifier.size(32.dp)
             )
         }
+        Text(
+            text = "(Showcases navigation to another feature)",
+            color = Color(0xFFE65100),
+            style = MaterialTheme.typography.bodyLarge,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(top = 12.dp)
+        )
         TextField(
             value = param1.toString(),
             onValueChange = { param1 = it.toIntOrNull() ?: 0 },
