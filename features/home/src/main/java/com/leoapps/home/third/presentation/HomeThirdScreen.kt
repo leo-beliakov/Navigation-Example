@@ -1,5 +1,6 @@
 package com.leoapps.home.third.presentation
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,6 +17,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,6 +49,8 @@ fun HomeThirdScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
+    SideEffect { Log.d("MyTag", "Composable HomeThirdScreen") }
+
     HomeThirdScreen(
         state = state,
         onBackClicked = viewModel::onBackClicked,
@@ -63,6 +68,10 @@ private fun HomeThirdScreen(
     onBackClicked: () -> Unit,
     onGoToFourthScreenClicked: () -> Unit,
 ) {
+    LaunchedEffect(state) {
+        Log.d("MyTag", "Composable state: $state")
+    }
+    SideEffect { Log.d("MyTag", "Composable state: $state") }
     Column(
         modifier = Modifier
             .fillMaxSize()

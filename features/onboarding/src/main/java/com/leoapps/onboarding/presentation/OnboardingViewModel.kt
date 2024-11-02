@@ -14,7 +14,12 @@ import javax.inject.Inject
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
     setOnboardingShown: SetOnboardingShownUseCase,
-) : BaseViewModel<OnboardingUiState, OnboardingUiEffect, OnboardingNavCommand>() {
+) : BaseViewModel<OnboardingUiState, OnboardingUiEffect, OnboardingNavCommand>(
+    initialState = OnboardingUiState(
+        seletedPage = 0,
+        isLastPage = false,
+    )
+) {
 
     init {
         viewModelScope.launch {
@@ -53,9 +58,4 @@ class OnboardingViewModel @Inject constructor(
             OnboardingUiEffect.AnimateToPage(state.value.seletedPage)
         )
     }
-
-    override fun getInitialState() = OnboardingUiState(
-        seletedPage = 0,
-        isLastPage = false,
-    )
 }

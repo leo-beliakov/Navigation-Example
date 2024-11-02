@@ -14,10 +14,9 @@ import javax.inject.Inject
 @HiltViewModel
 class SignupViewModel @Inject constructor(
     private val signUp: SignUpUseCase
-) : BaseViewModel<SignupUiState, NoEffect, SignupNavCommand>() {
-
-    override fun getInitialState() = SignupUiState()
-
+) : BaseViewModel<SignupUiState, NoEffect, SignupNavCommand>(
+    initialState = SignupUiState()
+) {
     fun onNameChanged(name: String) {
         _state.update {
             it.copy(

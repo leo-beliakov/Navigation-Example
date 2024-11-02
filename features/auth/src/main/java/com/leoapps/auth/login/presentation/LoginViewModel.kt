@@ -14,10 +14,9 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val logIn: LogInUseCase,
-) : BaseViewModel<LoginUiState, NoEffect, LoginNavCommand>() {
-
-    override fun getInitialState() = LoginUiState()
-
+) : BaseViewModel<LoginUiState, NoEffect, LoginNavCommand>(
+    initialState = LoginUiState()
+) {
     fun onEmailChanged(email: String) {
         _state.update {
             it.copy(

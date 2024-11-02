@@ -1,6 +1,5 @@
 package com.leoapps.home.third.presentation
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
 import com.leoapps.home.base.domain.model.EnumParam
@@ -14,20 +13,17 @@ import javax.inject.Inject
 
 class HomeThirdViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-) : BaseViewModel<HomeThirdUiState, NoEffect, HomeThirdNavCommand>() {
-
-    val args = savedStateHandle.toRoute<HomeThirdDestination>()
-
-    init {
-        Log.d("MyTag", "args: $args")
+) : BaseViewModel<HomeThirdUiState, NoEffect, HomeThirdNavCommand>(
+    initialState = run {
+        val args = savedStateHandle.toRoute<HomeThirdDestination>()
+        HomeThirdUiState(
+            param1 = args.param1,
+            param2 = args.param2,
+            param3 = args.param3,
+            param4 = args.param4,
+        )
     }
-
-    override fun getInitialState() = HomeThirdUiState(
-        param1 = 123,
-        param2 = "Some value",
-        param3 = true,
-        param4 = EnumParam.VALUE1,
-    )
+) {
 
     fun onBackClicked() {
         navigate(HomeThirdNavCommand.Back)

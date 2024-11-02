@@ -9,9 +9,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeFirstViewModel @Inject constructor() :
-    BaseViewModel<NoState, NoEffect, HomeFirstNavCommand>() {
-
-    override fun getInitialState() = NoState
+    BaseViewModel<NoState, NoEffect, HomeFirstNavCommand>(
+        initialState = NoState
+    ) {
 
     fun onGoToSecondScreenClicked() {
         navigate(HomeFirstNavCommand.OpenSecondScreen)

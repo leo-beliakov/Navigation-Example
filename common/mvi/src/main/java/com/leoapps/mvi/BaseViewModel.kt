@@ -1,5 +1,6 @@
 package com.leoapps.mvi
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.leoapps.mvi.model.NavigationCommand
@@ -18,14 +19,19 @@ import kotlinx.coroutines.launch
  * @param Effect Type representing one-time events for the UI.
  * @param NavCommand Type representing navigation instructions.
  */
-abstract class BaseViewModel<State : UiState, Effect : UiEffect, NavCommand : NavigationCommand>
-    : ViewModel() {
+abstract class BaseViewModel<State : UiState, Effect : UiEffect, NavCommand : NavigationCommand>(
+    initialState: State
+) : ViewModel() {
 
     /**
-     * Holds the current view state, initialized by [getInitialState] and exposed as [state].
+     * Holds the current view state, exposed as [state].
      */
-    protected val _state = MutableStateFlow<State>(getInitialState())
+    protected val _state = MutableStateFlow<State>(initialState)
     val state = _state.asStateFlow()
+
+    init {
+        Log.d("MyTag", "BaseViewModel init _state ${hashCode()} ${_state.value} ")
+    }
 
     /**
      * Flow for emitting one-time [Effect]s, exposed as [uiEffects] for UI consumption.
@@ -38,8 +44,6 @@ abstract class BaseViewModel<State : UiState, Effect : UiEffect, NavCommand : Na
      */
     private val _navigationCommands = MutableSharedFlow<NavCommand>()
     val navigationCommands = _navigationCommands.asSharedFlow()
-
-    abstract fun getInitialState(): State
 
     protected fun navigate(command: NavCommand) {
         viewModelScope.launch {

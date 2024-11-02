@@ -16,7 +16,9 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor(
     shouldShowOnboarding: ShouldShowOnboardingUseCase,
     isUserLoggedIn: IsUserLoggedInUseCase,
-) : BaseViewModel<NoState, NoEffect, SplashNavCommand>() {
+) : BaseViewModel<NoState, NoEffect, SplashNavCommand>(
+    initialState = NoState
+) {
 
     init {
         viewModelScope.launch {
@@ -30,6 +32,4 @@ class SplashViewModel @Inject constructor(
             }
         }
     }
-
-    override fun getInitialState() = NoState
 }

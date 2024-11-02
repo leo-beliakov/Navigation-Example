@@ -15,23 +15,20 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.leoapps.home.base.domain.model.EnumParam
 import com.leoapps.home.base.domain.model.HomeCustomParam1
-import com.leoapps.home.fifth.presentation.model.HomeFifthNavCommand
+import com.leoapps.home.fifth.presentation.model.HomeFifthUiState
 import com.leoapps.home.fifth.presentation.navigation.HomeFifthNavigator
+import com.leoapps.mvi.utils.CollectEventsWithLifecycle
 import com.leoapps.navigation.NavigationDestination
 import kotlinx.serialization.Serializable
 
@@ -47,9 +44,25 @@ fun HomeFifthScreen(
     viewModel: HomeFifthViewModel = hiltViewModel(),
     navigator: HomeFifthNavigator,
 ) {
-    var param1 by remember { mutableIntStateOf(0) }
-    var param2 by remember { mutableStateOf("") }
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
+    HomeFifthScreen(
+        state = state,
+        onBackClicked = viewModel::onBackClicked,
+        onGoToFirstScreenClicked = viewModel::onGoToFirstScreenClicked,
+    )
+
+    CollectEventsWithLifecycle(viewModel.navigationCommands) { command ->
+        navigator.onNavCommand(command)
+    }
+}
+
+@Composable
+private fun HomeFifthScreen(
+    state: HomeFifthUiState,
+    onBackClicked: () -> Unit,
+    onGoToFirstScreenClicked: () -> Unit,
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -62,7 +75,7 @@ fun HomeFifthScreen(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             IconButton(
-                onClick = { navigator.onNavCommand(HomeFifthNavCommand.Back) },
+                onClick = onBackClicked,
                 modifier = Modifier.size(32.dp)
             ) {
                 Icon(Icons.Default.ArrowBack, contentDescription = "Back")
@@ -84,27 +97,16 @@ fun HomeFifthScreen(
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 12.dp)
         )
-        TextField(
-            value = param1.toString(),
-            onValueChange = { param1 = it.toIntOrNull() ?: 0 },
-            label = { Text("Enter primitive param (Int)") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 24.dp)
-        )
-        TextField(
-            value = param2,
-            onValueChange = { param2 = it },
-            label = { Text("Enter primitive param (String)") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp)
+        Text(
+            "Received params: \n\nparam1 = ${state.listParam1}, \n\nparam2 = ${state.listParam2}, \n\nparam3 = ${state.listParam3}",
+            color = Color(0xFF2E7D32),
+            modifier = Modifier.padding(top = 16.dp)
         )
         Spacer(
             modifier = Modifier.weight(1f)
         )
         Button(
-            onClick = { navigator.onNavCommand(HomeFifthNavCommand.OpenFirst) },
+            onClick = onGoToFirstScreenClicked,
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Go to Third Screen")

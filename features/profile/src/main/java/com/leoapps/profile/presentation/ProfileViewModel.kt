@@ -8,15 +8,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor() :
-    BaseViewModel<ProfileUiState, NoEffect, ProfileNavCommand>() {
-
-    override fun getInitialState(): ProfileUiState {
-        return ProfileUiState(
-            username = "Leo",
-            email = "leo.baervrsdf@der.esce"
-        )
-    }
+class ProfileViewModel @Inject constructor(
+) : BaseViewModel<ProfileUiState, NoEffect, ProfileNavCommand>(
+    initialState = ProfileUiState(
+        username = "Leo",
+        email = "leo.baervrsdf@der.esce"
+    )
+) {
 
     fun onLogoutClicked() {
         navigate(ProfileNavCommand.OpenAuth)
