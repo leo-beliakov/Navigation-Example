@@ -12,7 +12,7 @@ class HomeSecondNavigatorImpl(
     override fun onNavCommand(navCommand: HomeSecondNavCommand) {
         when (navCommand) {
             HomeSecondNavCommand.Back -> {
-                navController.popBackStack()
+                navController.navigateUp()
             }
 
             is HomeSecondNavCommand.OpenThirdScreen -> {

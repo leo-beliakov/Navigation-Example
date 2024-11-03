@@ -12,7 +12,7 @@ class HomeFifthNavigatorImpl(
     override fun onNavCommand(navCommand: HomeFifthNavCommand) {
         when (navCommand) {
             HomeFifthNavCommand.Back -> {
-                navController.popBackStack()
+                navController.navigateUp()
             }
 
             HomeFifthNavCommand.OpenFirst -> {
