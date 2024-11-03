@@ -1,11 +1,13 @@
 package com.leoapps.home.fifth.presentation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -97,10 +99,23 @@ private fun HomeFifthScreen(
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 12.dp)
         )
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp)
+                .height(1.dp)
+                .background(Color.Gray)
+        )
         Text(
             "Received params: \n\nparam1 = ${state.listParam1}, \n\nparam2 = ${state.listParam2}, \n\nparam3 = ${state.listParam3}",
             color = Color(0xFF2E7D32),
-            modifier = Modifier.padding(top = 16.dp)
+        )
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp)
+                .height(1.dp)
+                .background(Color.Gray)
         )
         Spacer(
             modifier = Modifier.weight(1f)

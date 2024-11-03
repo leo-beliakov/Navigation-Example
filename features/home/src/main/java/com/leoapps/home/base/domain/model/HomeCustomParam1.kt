@@ -11,7 +11,7 @@ import kotlinx.serialization.json.Json
 data class HomeCustomParam1(
     val value1: Boolean,
     val value2: EnumParam,
-) : java.io.Serializable
+)
 
 object HomeCustomParam1NavType : NavType<HomeCustomParam1>(
     isNullableAllowed = false

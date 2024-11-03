@@ -2,13 +2,13 @@ package com.leoapps.home.third.presentation
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
-import com.leoapps.home.base.domain.model.EnumParam
-import com.leoapps.home.base.domain.model.HomeCustomParam1
-import com.leoapps.home.base.domain.model.HomeCustomParam2
+import com.leoapps.home.base.domain.getRandomHomeCustomParam1
+import com.leoapps.home.base.domain.getRandomHomeCustomParam2
 import com.leoapps.home.third.presentation.model.HomeThirdNavCommand
 import com.leoapps.home.third.presentation.model.HomeThirdUiState
 import com.leoapps.mvi.BaseViewModel
 import com.leoapps.mvi.model.NoEffect
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 class HomeThirdViewModel @Inject constructor(
@@ -30,21 +30,24 @@ class HomeThirdViewModel @Inject constructor(
     }
 
     fun onGoToFourthScreenClicked() {
+        val param1 = state.value.generatedParam1 ?: return
+        val param2 = state.value.generatedParam2 ?: return
+
         navigate(
             HomeThirdNavCommand.OpenFourthScreen(
-                customParam1 = HomeCustomParam1(
-                    value1 = true,
-                    value2 = EnumParam.VALUE1
-                ),
-                customParam2 = HomeCustomParam2(
-                    value1 = "Some value",
-                    value2 = 1234,
-                    value3 = HomeCustomParam1(
-                        value1 = false,
-                        value2 = EnumParam.VALUE2
-                    ),
-                ),
+                customParam1 = param1,
+                customParam2 = param2,
             )
         )
+    }
+
+    fun onGenerateParamsClicked() {
+        _state.update {
+            it.copy(
+                isNavigateNextEnabled = true,
+                generatedParam1 = getRandomHomeCustomParam1(),
+                generatedParam2 = getRandomHomeCustomParam2()
+            )
+        }
     }
 }

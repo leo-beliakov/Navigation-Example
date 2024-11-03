@@ -1,13 +1,17 @@
 package com.leoapps.home.fourth.presentation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
@@ -48,6 +52,7 @@ fun HomeFourthScreen(
     HomeFourthScreen(
         state = state,
         onBackClicked = viewModel::onBackClicked,
+        onGenerateParamsClicked = viewModel::onGenerateParamsClicked,
         onGoToFifthScreenClicked = viewModel::onGoToFifthScreenClicked,
     )
 
@@ -60,12 +65,14 @@ fun HomeFourthScreen(
 private fun HomeFourthScreen(
     state: HomeFourthUiState,
     onBackClicked: () -> Unit,
+    onGenerateParamsClicked: () -> Unit,
     onGoToFifthScreenClicked: () -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(16.dp)
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
@@ -96,16 +103,64 @@ private fun HomeFourthScreen(
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 12.dp)
         )
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp)
+                .height(1.dp)
+                .background(Color.Gray)
+        )
         Text(
             "Received params: \n\nparam1 = ${state.customParam1}, \n\nparam2 = ${state.customParam2}",
             color = Color(0xFF2E7D32),
-            modifier = Modifier.padding(top = 16.dp)
+            modifier = Modifier.fillMaxWidth()
         )
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp)
+                .height(1.dp)
+                .background(Color.Gray)
+        )
+        if (state.generatedParam1.isEmpty() && state.generatedParam2.isEmpty() && state.generatedParam3.isEmpty()) {
+            Button(
+                onClick = onGenerateParamsClicked,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Generate Params for Fourth Screen")
+            }
+        }
+        if (state.generatedParam1.isNotEmpty()) {
+            Text(
+                text = "Generated Param1: \n${state.generatedParam1})",
+                color = Color(0xFF1976D2),
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+        if (state.generatedParam2.isNotEmpty()) {
+            Text(
+                text = "Generated Param2: \n${state.generatedParam2})",
+                color = Color(0xFF1976D2),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
+            )
+        }
+        if (state.generatedParam3.isNotEmpty()) {
+            Text(
+                text = "Generated Param3: \n${state.generatedParam3})",
+                color = Color(0xFF1976D2),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
+            )
+        }
         Spacer(
             modifier = Modifier.weight(1f)
         )
         Button(
             onClick = onGoToFifthScreenClicked,
+            enabled = state.isNavigateNextEnabled,
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Go to Fifth Screen")

@@ -9,7 +9,7 @@ import kotlinx.serialization.json.Json
 enum class EnumParam {
     VALUE1,
     VALUE2,
-    VALUE3
+    VALUE3;
 }
 
 object EnumParamListNavType : NavType<List<EnumParam>>(

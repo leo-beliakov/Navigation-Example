@@ -1,6 +1,5 @@
 package com.leoapps.mvi
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.leoapps.mvi.model.NavigationCommand
@@ -28,10 +27,6 @@ abstract class BaseViewModel<State : UiState, Effect : UiEffect, NavCommand : Na
      */
     protected val _state = MutableStateFlow<State>(initialState)
     val state = _state.asStateFlow()
-
-    init {
-        Log.d("MyTag", "BaseViewModel init _state ${hashCode()} ${_state.value} ")
-    }
 
     /**
      * Flow for emitting one-time [Effect]s, exposed as [uiEffects] for UI consumption.
