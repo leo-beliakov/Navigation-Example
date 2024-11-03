@@ -16,6 +16,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -51,6 +52,7 @@ fun HomeFifthScreen(
     HomeFifthScreen(
         state = state,
         onBackClicked = viewModel::onBackClicked,
+        onOpenChatClicked = viewModel::onOpenChatClicked,
         onGoToFirstScreenClicked = viewModel::onGoToFirstScreenClicked,
     )
 
@@ -63,6 +65,7 @@ fun HomeFifthScreen(
 private fun HomeFifthScreen(
     state: HomeFifthUiState,
     onBackClicked: () -> Unit,
+    onOpenChatClicked: () -> Unit,
     onGoToFirstScreenClicked: () -> Unit,
 ) {
     Column(
@@ -121,10 +124,16 @@ private fun HomeFifthScreen(
             modifier = Modifier.weight(1f)
         )
         Button(
+            onClick = onOpenChatClicked,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Open Chat")
+        }
+        OutlinedButton(
             onClick = onGoToFirstScreenClicked,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Go to Third Screen")
+            Text("Go to First Screen")
         }
     }
 }

@@ -21,6 +21,7 @@ import com.leoapps.home.root.presentation.HomeDestination
 import com.leoapps.home.root.presentation.HomeRootScreen
 import com.leoapps.main.ui.composables.HomeNavBarItem
 import com.leoapps.main.ui.model.BottomNavItem
+import com.leoapps.main.ui.navigator.HomeRootNavigatorImpl
 import com.leoapps.main.ui.navigator.MainNavigator
 import com.leoapps.main.ui.navigator.ProfileNavigatorImpl
 import com.leoapps.navigation.openTab
@@ -72,7 +73,9 @@ private fun MainScreen(
                 modifier = Modifier.padding(innerPadding)
             ) {
                 composable<HomeDestination> {
-                    HomeRootScreen()
+                    HomeRootScreen(
+                        navigator = HomeRootNavigatorImpl(navController)
+                    )
                 }
                 composable<ChatDestination> {
                     ChatScreen()

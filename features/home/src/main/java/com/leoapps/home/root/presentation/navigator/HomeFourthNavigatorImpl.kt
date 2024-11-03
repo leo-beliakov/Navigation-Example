@@ -1,4 +1,4 @@
-package com.leoapps.home.root.navigator
+package com.leoapps.home.root.presentation.navigator
 
 import androidx.navigation.NavController
 import com.leoapps.home.fifth.presentation.HomeFifthDestination

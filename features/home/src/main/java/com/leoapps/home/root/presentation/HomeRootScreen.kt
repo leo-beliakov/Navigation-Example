@@ -17,11 +17,12 @@ import com.leoapps.home.first.presentation.HomeFirstDestination
 import com.leoapps.home.first.presentation.HomeFirstScreen
 import com.leoapps.home.fourth.presentation.HomeFourthDestination
 import com.leoapps.home.fourth.presentation.HomeFourthScreen
-import com.leoapps.home.root.navigator.HomeFifthNavigatorImpl
-import com.leoapps.home.root.navigator.HomeFirstNavigatorImpl
-import com.leoapps.home.root.navigator.HomeFourthNavigatorImpl
-import com.leoapps.home.root.navigator.HomeSecondNavigatorImpl
-import com.leoapps.home.root.navigator.HomeThirdNavigatorImpl
+import com.leoapps.home.root.presentation.navigator.HomeFifthNavigatorImpl
+import com.leoapps.home.root.presentation.navigator.HomeFirstNavigatorImpl
+import com.leoapps.home.root.presentation.navigator.HomeFourthNavigatorImpl
+import com.leoapps.home.root.presentation.navigator.HomeRootNavigator
+import com.leoapps.home.root.presentation.navigator.HomeSecondNavigatorImpl
+import com.leoapps.home.root.presentation.navigator.HomeThirdNavigatorImpl
 import com.leoapps.home.second.presentation.HomeSecondDestination
 import com.leoapps.home.second.presentation.HomeSecondScreen
 import com.leoapps.home.third.presentation.HomeThirdDestination
@@ -34,7 +35,9 @@ import kotlin.reflect.typeOf
 object HomeDestination : NavigationDestination
 
 @Composable
-fun HomeRootScreen() {
+fun HomeRootScreen(
+    navigator: HomeRootNavigator,
+) {
     val navController = rememberNavController()
 
     NavHost(
@@ -73,7 +76,10 @@ fun HomeRootScreen() {
             )
         ) {
             HomeFifthScreen(
-                navigator = HomeFifthNavigatorImpl(navController)
+                navigator = HomeFifthNavigatorImpl(
+                    rootNavigator = navigator,
+                    navController = navController
+                )
             )
         }
     }

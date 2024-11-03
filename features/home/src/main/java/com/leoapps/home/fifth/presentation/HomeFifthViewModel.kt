@@ -40,4 +40,8 @@ class HomeFifthViewModel @Inject constructor(
     fun onGoToFirstScreenClicked() {
         navigate(HomeFifthNavCommand.OpenFirst)
     }
+
+    fun onOpenChatClicked() {
+        navigate(HomeFifthNavCommand.OpenChat)
+    }
 }

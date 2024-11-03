@@ -127,7 +127,7 @@ private fun HomeFourthScreen(
                 onClick = onGenerateParamsClicked,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Generate Params for Fourth Screen")
+                Text("Generate Params for Fifth Screen")
             }
         }
         if (state.generatedParam1.isNotEmpty()) {
