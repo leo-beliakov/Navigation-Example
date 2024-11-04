@@ -5,20 +5,16 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
-import com.leoapps.chat.dialog.presentation.ChatDialogDestination
 import com.leoapps.chat.first.presentation.ChatFirstDestination
 import com.leoapps.chat.first.presentation.ChatFirstScreen
 import com.leoapps.chat.first.presentation.ChatSecondDestination
+import com.leoapps.chat.first.presentation.ChatSecondDialog
 import com.leoapps.chat.first.presentation.ChatSecondScreen
 import com.leoapps.chat.root.presentation.navigation.ChatNavigator
 import com.leoapps.navigation.NavigationDestination
@@ -73,31 +69,24 @@ fun ChatRootScreen(
             }
         ) {
             ChatSecondScreen(
+                onBackClicked = {
+                    navController.navigateUp()
+                },
                 onDialogOpenClicked = {
-                    navController.navigate(ChatDialogDestination)
+                    navController.navigate(ChatSecondDialog)
                 }
             )
         }
-        dialog<ChatDialogDestination> {
-            AlertDialog(
+        dialog<ChatSecondDialog> {
+            ChatSecondDialog(
                 onDismissRequest = { navController.navigateUp() },
-                title = { Text("SomeTitle") },
-                text = { Text("SomeSubTitle") },
-                confirmButton = {
-                    TextButton(onClick = {
-                        navController.popBackStack(ChatSecondDestination, inclusive = true)
-                    }) {
-                        Text("Leave")
-                    }
-                },
-                dismissButton = {
-                    TextButton(onClick = { navController.navigateUp() }) {
-                        Text("Stay")
-                    }
-                },
-                properties = DialogProperties(
-                    dismissOnClickOutside = true
-                )
+                onNegativeClicked = { navController.navigateUp() },
+                onPositiveClicked = {
+                    navController.popBackStack(
+                        ChatSecondDestination,
+                        inclusive = true
+                    )
+                }
             )
         }
     }
