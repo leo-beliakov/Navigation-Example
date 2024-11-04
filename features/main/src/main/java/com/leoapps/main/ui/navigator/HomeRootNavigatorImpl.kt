@@ -1,7 +1,7 @@
 package com.leoapps.main.ui.navigator
 
 import androidx.navigation.NavController
-import com.leoapps.chat.presentation.ChatDestination
+import com.leoapps.chat.root.presentation.ChatDestination
 import com.leoapps.home.root.presentation.model.HomeRootNavCommand
 import com.leoapps.home.root.presentation.navigator.HomeRootNavigator
 

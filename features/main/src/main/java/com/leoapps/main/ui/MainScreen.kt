@@ -15,12 +15,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.leoapps.chat.presentation.ChatDestination
-import com.leoapps.chat.presentation.ChatScreen
+import com.leoapps.chat.root.presentation.ChatDestination
+import com.leoapps.chat.root.presentation.ChatRootScreen
 import com.leoapps.home.root.presentation.HomeDestination
 import com.leoapps.home.root.presentation.HomeRootScreen
 import com.leoapps.main.ui.composables.HomeNavBarItem
 import com.leoapps.main.ui.model.BottomNavItem
+import com.leoapps.main.ui.navigator.ChatNavigatorImpl
 import com.leoapps.main.ui.navigator.HomeRootNavigatorImpl
 import com.leoapps.main.ui.navigator.MainNavigator
 import com.leoapps.main.ui.navigator.ProfileNavigatorImpl
@@ -78,7 +79,9 @@ private fun MainScreen(
                     )
                 }
                 composable<ChatDestination> {
-                    ChatScreen()
+                    ChatRootScreen(
+                        navigator = ChatNavigatorImpl(navController)
+                    )
                 }
                 composable<ProfileDestination> {
                     ProfileScreen(
